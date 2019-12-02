@@ -1,0 +1,11 @@
+在Mapper映射文件中，写返回类型往往会用到一个类，比如com.jac.model.User
+如果我们配置一个别名，那么将简化调用
+
+SqlMapConfig.xml：
+指定typeAliases标签
+<typeAliases>
+  <typeAlias type="com.jac.model.User alias="user">
+</typeAliases>
+
+此后，user即可代替类路径全称
+

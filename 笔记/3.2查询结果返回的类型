@@ -1,0 +1,29 @@
+mybatis是将查询结果封装到java对象中去
+//如果查询过程中，username被指定别名username_，那么结果中对应的项救赎username_
+
+resultType应用场景
+1.简单类型（int、string）
+2.单个模型，需要查询结果模型（不是数据表，虽然通常情况下是）和java模型值完全对应
+//查询结果有4个属性（id、username。。），User.java中有完全一样的4个属性
+//如果条件正确，结果属性不对应，那么查询过程没有问题，只是结果无法封装到java对象中（不对应的属性局部无法被封装）
+3.列表，参数填写列表中的元素类型即可
+
+resultMap应用场景：
+1.需要将属性不匹配的结果映射为java对象
+//结果为id_、username_、..java对象为id、username..
+操作方式：
+设置一个resultMap：
+    <resultMap id="userMap" type="user">
+//此处type中的user被指定了别名
+        <id property="id" column="id_"/>
+//id属性单独列出，其他属性全部使用result
+        <result property="username" column="username_"/>
+        <result property="sex" column="sex_"/>
+        <result property="address" column="address_"/>
+    </resultMap>
+//property表示要映射的属性（java对象中的属性），而column为查询结果的单个属性
+在查询标签中应用此map：
+    <select id="findByName" resultMap="userMap">
+//写了resultMap就不要再写resultType了
+
+

@@ -1,0 +1,36 @@
+目标：查询usr表中id为26的人的信息
+
+xml部分
+1.在sqlmap中新增User.xml映射文件
+添加一条映射关系：
+<mapper namespace="test">
+//指定命名空间为test
+    <select id="findUserById" parameterType="int" resultType="com.jac.model.User">
+//id表明statement的id，要求在命名空间内唯一
+//parameterType表示入参的java类型（可不写，mybatis通过上下文推断）
+//resultType表示单条结果对应的java类型
+        select * from user where id = #{id}
+//#{}:表示一个占位符 #{id}：表示占位符待接受的参数名称为id（其实写什么都无所谓，增加可读性）
+    </select>
+</mapper>
+
+2.将映射添加到mybatis环境配置文件中
+    <!--加载映射文件-->
+    <mappers>
+        <mapper resource="sqlmap/User.xml"/>
+    </mappers>
+
+
+测试部分（java）：
+//      读取配置文件（需要抛出io异常）
+        InputStream inputStream= Resources.getResourceAsStream("SqlMapConfig.xml");
+//      通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂
+        SqlSessionFactory ssf = new SqlSessionFactoryBuilder().build(inputStream);
+//      通过SqlSessionFactory创建SqlSession
+        SqlSession sqlSession = ssf.openSession();
+//      调用SqlSession的操作数据库方法
+        User user = sqlSession.selectOne("findUserById", 26);
+        System.out.println(user);
+//      关闭会话
+        sqlSession.close();
+

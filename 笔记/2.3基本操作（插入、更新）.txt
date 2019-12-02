@@ -1,0 +1,37 @@
+插入数据：
+User.xml:
+<insert id="insertUser" parameterType="com.jac.model.User">
+        insert into user (username,birthday,sex,address)
+        value
+        (#{username},#{birthday},#{sex},#{address})
+//占位符填写对应类的属性
+</insert>
+
+test.java:
+User user = new User("jacketzc",new Date(), "2",  "");
+sqlSession.insert("insertUser",user);
+//mybatis采用事务管理（SqlMapConfig.xml中提供了jdbcManager），所以需要提交事务
+sqlSession.commit();
+
+删除数据：
+User.xml:
+<delete id="deleteUser">
+delete from user where username=#{id}
+</delete>
+
+test.java:
+sqlSession.delete("deleteUser","xiaoming");
+
+更新数据：
+User.xml:
+<update id="updateUser">
+	update  user set sex=#{sex},address=#{address}
+        where id=#{id}
+</update>
+
+test.java:
+User user = new User();
+user.setId(38);
+user.setAddress("盐城");
+user.setSex("m");
+sqlSession.update("updateUser",user);

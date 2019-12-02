@@ -1,0 +1,64 @@
+默认已经有的jar包：
+	数据库连接池相关jar
+	mysql-connector.jar
+需要的额外jar包：
+	从github下载mybatis.zip
+	将根目录下的核心包mybatis.jar导入（项目跑起来这个就够了）
+	将lib目录下的所有jar包导入
+
+配置文件说明：
+1.src/SqlMapConfig.xml
+//mybatis环境配置文件
+一般写法：
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!--配置mybatis环境-->
+    <environments default="development">
+        <environment id="development">
+            <!--配置事务控制为JDBC-->
+            <transactionManager type="JDBC"/>
+            <!--配置数据库连接池为dbcp-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://jacketzc.com:3306/mybatisuseUnicode=true&amp;characterEncoding=UTF-8"/>
+//jdbc连接mysql使用中文检索时，一定要在链接末尾填上useUnicode=true&characterEncoding=UTF-8
+
+                <property name="username" value="jacketzc"/>
+                <property name="password" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--加载映射文件-->
+    <mappers>
+        <mapper resource="sqlmap/User.xml"/>
+    </mappers>
+</configuration>
+
+2.src/log4j.properties
+//mybatis日志文件
+一般写法：
+# 配置mybatis日志，模式为debug
+log4j.rootLogger=DEBUG, stdout
+# 使用控制台输出...
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+3.src/sqlmap/User.xml
+//sqlmap是新增目录，专门放置映射文件
+//映射文件中放置了具体操作数据库的说明
+一般写法：
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+    <select id="findUserById" parameterType="int" resultType="com.jac.model.User">
+        select * from user where id = #{id}
+    </select>
+</mapper>
+

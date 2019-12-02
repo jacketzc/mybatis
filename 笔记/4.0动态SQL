@@ -1,0 +1,63 @@
+动态SQL的含义就是根据某些条件动态的封装SQL语句
+
+<if>标签：如果符合条件，就把if标签内的SQL拼接到原sql中
+<select parameterType="user" resultType="user">
+//user对象中有4个属性id、username、sex、address
+    select * from user
+    <if test="username!=null and username!=''">
+	username=#{username}
+    </if>
+</select>
+//注意条件语句test的写法！
+if标签很适合不确定查询条件情况下的查找
+同样一个查询语句，user对象中哪个属性被设置那么就用哪个语句查找
+
+
+<choose><when><otherwise>：相当于java中的switch，从所有的条件中选择一项执行
+****
+<choose>
+  <when>****</when>
+  <when>****</when>
+  <otherwise>****</otherwise>
+</choose>
+//当有一项条件成立时，其他的条件将不再判断
+
+
+
+
+<where>标签：解决直接在sql中写where的问题
+1.一个条件也不满足：
+**** where <if>**</if>...
+如果where后面的if条件一个都没有成立的话，那么原SQL就会变成：****where，这是一个错误的SQL语句
+如果使用<where>，当没有条件满足时，where不会被写入SQL
+2.满足的第一个条件为AND或者OR
+****where <if>AND**</if>
+如果该if条件成立，那么SQL语句就会变成：****where AND，这也是一个错误的SQL语句
+使用<where>将去除不符合规则的AND或者OR
+
+
+<set>标签：解决直接写set的问题
+1.因某些条件不匹配而产生的多余","
+update user set
+<if>***,</if>
+<if>***,</if>
+<if>***</if>
+如果最后一个if没有成立，那么之前成立的if语句的末尾势必会多出一个","
+使用<set>可以删除多余的","
+
+
+
+
+<trim>标签：自定义标签
+例
+自定义where功能:
+<trim prefix="WHERE" prifixOverrides="AND|OR"></trim>
+//此处功能和<where>一致，prefix选项为在首部插入的内容，prifixOverrides选项为头部需要覆盖的内容
+自定义set功能：
+<trim prifix="set" suffixOverrides="","></trim>
+//功能和<set>一致，prifixOverrides选项为尾部需要覆盖的内容
+
+
+
+
+

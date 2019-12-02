@@ -1,0 +1,6 @@
+如果查询条件只有两个，搞成封装类很麻烦，不如搞个map
+
+假设一个Map中key和value分别是username（string）和sex（string）
+select * from user where username LIKE '%${username}%' AND sex=#{sex}
+
+//Map也是复杂封装类型，所以你知道怎么做

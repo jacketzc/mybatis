@@ -1,0 +1,24 @@
+对于mapper的理解：
+
+通俗的讲，就是将原来的dao层替换为mapper层。
+mapper层结构（文件夹）
+mapper
+  UserMapper.java(接口，相当于原来UserDao)
+  xml(文件夹，用于存放映射文件)
+    UserMapper.xml(Mapper映射文件，就是前几个笔记写的东西)
+//映射文件相当于UserMapper的实现类，但是实际上通过代理完成
+
+操作方式
+UserMapper.xml：
+命名空间填写UserMapper.java的完整路径名其他的和之前没有变化
+SalMapConfig.xml：
+加载UserMapper.xml这个映射文件
+UserMapper.java：
+接口中的每一个方法名称需要和映射文件中的诸如<insert>标签中的id一致
+！接口中的每个方法只能传递一个值
+test.java：
+原来的操作：直接调用sqlSession现成的方法
+现在的操作：先通过sqlSession获取代理对象
+	    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+	    再通过代理对象调用方法
+	    mapper.findById(int)

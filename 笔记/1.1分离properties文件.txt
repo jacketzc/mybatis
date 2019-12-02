@@ -1,0 +1,11 @@
+另写一个db.properties文件（和spring中一样）
+driverClassName=com.mysql.jdbc.Driver
+url=jdbc:mysql://jacketzc.com:3306/mybatis?useUnicode=true&characterEncoding=UTF-8
+username=jacketzc
+password=
+
+
+在SqlMapConfig中使用properties标签引用：
+<configuration>
+    <properties resource="db.properties"/>
+//写在最外层的configure标签下方即可

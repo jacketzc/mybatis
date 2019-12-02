@@ -1,0 +1,17 @@
+mybatis查询时，入参只允许传入一个参数
+//就是parameterType
+可以是简单类型（int、string）也可以是POJO（简单封装类型）
+//POJO最简单的一个例子就是一个User模型，里面包括id、name、money
+
+也可以是复杂封装类型
+比如User_order（此类封装了一个User类和一个Order类）
+调用封装类中的简单类型时，可以使用诸如User.id这种方式
+举个例子：
+    <select id="findByUserId" resultType="User_order">
+        select * from user where uid = #{user.id}
+    </select>
+//此处mybatis自动判断入参类型为User_order，想要根据User的id来查找，那么占位符的内容就不可以随便写了，需要使用User_order中user成员中的id成员
+
+顺带一提：如果此时查询条件需要使用字符串拼接，那么占位符也不是固定的value，是什么就写什么
+select * from user where username like '%${user.id}%'
+//POJO类型仍然得写value

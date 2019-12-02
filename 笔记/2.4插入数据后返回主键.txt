@@ -1,0 +1,7 @@
+User.xml：
+<insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+//添加useGeneratedKeys="true"表明返回自动生成的主键
+        insert into user (username,birthday,sex,address)
+        value
+        (#{username},#{birthday},#{sex},#{address})
+</insert>

@@ -1,0 +1,19 @@
+使用注解替代映射文件：
+在Mapper对应接口中对应的方法前添加注解，可以代替mapper映射文件
+//这种方式并不推荐使用
+
+@Insert(SQL语句)
+
+@Select（"select * from user where id = #{hehe}"）
+
+
+加载映射文件的几种方式：
+1.使用相对路径名：
+<mapper resource="com/jac/mapper/xml/UserMapper.xml"/>
+2.使用绝对路径（不推荐）
+3.使用包名：
+<package name="com.jac.mapper.xml" />
+//这种方法会将包下所有的mapper.xml映射文件加载
+
+
+

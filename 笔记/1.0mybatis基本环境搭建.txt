@@ -1,3 +1,5 @@
+mybatis本质上还是将spring的事务控制整合打包
+
 默认已经有的jar包：
 	数据库连接池相关jar
 	mysql-connector.jar
@@ -25,7 +27,7 @@
             <!--配置数据库连接池为dbcp-->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://jacketzc.com:3306/mybatisuseUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="url" value="jdbc:mysql://jacketzc.com:3306/mybatis?useUnicode=true&amp;characterEncoding=UTF-8"/>
 //jdbc连接mysql使用中文检索时，一定要在链接末尾填上useUnicode=true&characterEncoding=UTF-8
 
                 <property name="username" value="jacketzc"/>

@@ -4,7 +4,7 @@ User.xml:
     </select>
 //${}表示拼接字符串
 //如果执行模糊查询的参数为简单类型（int、String等），则必须必须填写value（固定写法）
-//若返回一个列表，返回类型还是填单个列表元素的类型
+//返回结果是一个list的时候，resultType还是填单个列表元素的类型
 
 test.java：
 List<User> users = sqlSession.selectList("findUserByName", "王");

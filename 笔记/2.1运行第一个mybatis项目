@@ -14,6 +14,7 @@ xml部分
     </select>
 </mapper>
 
+
 2.将映射添加到mybatis环境配置文件中
     <!--加载映射文件-->
     <mappers>
@@ -30,6 +31,7 @@ xml部分
         SqlSession sqlSession = ssf.openSession();
 //      调用SqlSession的操作数据库方法
         User user = sqlSession.selectOne("findUserById", 26);
+//mybatis会将返回值自动封装为对象，如果对应的属性名称不同，将被赋值为null，不会报错
         System.out.println(user);
 //      关闭会话
         sqlSession.close();

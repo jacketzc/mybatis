@@ -8,12 +8,13 @@
 
 
 加载映射文件的几种方式：
-1.使用相对路径名：
+1.使用映射文件路径名：
 <mapper resource="com/jac/mapper/xml/UserMapper.xml"/>
-2.使用绝对路径（不推荐）
+2.使用类路径（不推荐）
 3.使用包名：
-<package name="com.jac.mapper.xml" />
-//这种方法会将包下所有的mapper.xml映射文件加载
+<package name="com/jac/mapper" />
+//这种方法会将mapper包下所有的映射文件加载
+!注：xml文件和接口必须在同一文件夹下，且必须同名
 
 
 

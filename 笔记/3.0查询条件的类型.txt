@@ -14,4 +14,6 @@ mybatis查询时，入参只允许传入一个参数
 
 顺带一提：如果此时查询条件需要使用字符串拼接，那么占位符也不是固定的value，是什么就写什么
 select * from user where username like '%${user.id}%'
-//POJO类型仍然得写value
+//POJO类型原则上是啥就写啥，比如'%${address}%'
+//实际上bug，填uername时会自动将登陆数据库的用户名填进去，填password也不行
+//建议使用时避开username和password这两个关键词

@@ -5,3 +5,5 @@ User.xml：
         value
         (#{username},#{birthday},#{sex},#{address})
 </insert>
+
+//返回的逐渐被自动封装进user对象中

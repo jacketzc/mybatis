@@ -1,5 +1,5 @@
 mybatis是将查询结果封装到java对象中去
-//如果查询过程中，username被指定别名username_，那么结果中对应的项救赎username_
+//如果查询过程中，username被指定别名username_，那么结果中对应的项就是username_
 
 resultType应用场景
 1.简单类型（int、string）

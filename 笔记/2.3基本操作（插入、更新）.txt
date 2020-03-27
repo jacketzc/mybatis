@@ -12,6 +12,7 @@ User user = new User("jacketzc",new Date(), "2",  "");
 sqlSession.insert("insertUser",user);
 //mybatis采用事务管理（SqlMapConfig.xml中提供了jdbcManager），所以需要提交事务
 sqlSession.commit();
+//不提交事务不会插入但是正确返回
 
 删除数据：
 User.xml:

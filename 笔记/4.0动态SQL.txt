@@ -1,9 +1,11 @@
 动态SQL的含义就是根据某些条件动态的封装SQL语句
+//不管是用哪种标签，之前的sql语句都不会变多或者变少
+
 
 <if>标签：如果符合条件，就把if标签内的SQL拼接到原sql中
 <select parameterType="user" resultType="user">
 //user对象中有4个属性id、username、sex、address
-    select * from user
+    select * from user WHERE
     <if test="username!=null and username!=''">
 	username=#{username}
     </if>
@@ -12,6 +14,15 @@
 if标签很适合不确定查询条件情况下的查找
 同样一个查询语句，user对象中哪个属性被设置那么就用哪个语句查找
 
+<where>标签：解决直接在sql中写where的问题
+1.一个条件也不满足：
+**** where <if>**</if>...
+如果where后面的if条件一个都没有成立的话，那么原SQL就会变成：****where，这是一个错误的SQL语句
+如果使用<where>，当没有条件满足时，where不会被写入SQL
+2.满足的第一个条件为AND或者OR
+****where <if>AND**</if>
+如果该if条件成立，那么SQL语句就会变成：****where AND，这也是一个错误的SQL语句
+使用<where>将去除不符合规则的AND或者OR
 
 <choose><when><otherwise>：相当于java中的switch，从所有的条件中选择一项执行
 ****
@@ -25,15 +36,7 @@ if标签很适合不确定查询条件情况下的查找
 
 
 
-<where>标签：解决直接在sql中写where的问题
-1.一个条件也不满足：
-**** where <if>**</if>...
-如果where后面的if条件一个都没有成立的话，那么原SQL就会变成：****where，这是一个错误的SQL语句
-如果使用<where>，当没有条件满足时，where不会被写入SQL
-2.满足的第一个条件为AND或者OR
-****where <if>AND**</if>
-如果该if条件成立，那么SQL语句就会变成：****where AND，这也是一个错误的SQL语句
-使用<where>将去除不符合规则的AND或者OR
+
 
 
 <set>标签：解决直接写set的问题

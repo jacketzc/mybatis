@@ -10,9 +10,9 @@ mapper
 
 操作方式
 UserMapper.xml：
-命名空间填写UserMapper.java的完整路径名其他的和之前没有变化
+命名空间填写UserMapper.java的完整路径名，其他的和之前没有变化
 SalMapConfig.xml：
-加载UserMapper.xml这个映射文件
+还是加载UserMapper.xml这个映射文件
 UserMapper.java：
 接口中的每一个方法名称需要和映射文件中的诸如<insert>标签中的id一致
 ！接口中的每个方法只能传递一个值
